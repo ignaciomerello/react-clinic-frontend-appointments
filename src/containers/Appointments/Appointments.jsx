@@ -1,16 +1,11 @@
 import axios from 'axios';
 import './Appointments.scss';
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from "react-router";
 
 const Appointment = () => {
 
-    //HOOKS /////////////////////////////////////
 
-    const [dataAppointments, setAppointments] = useState([]);
-
-
-    ///////////////////////////////////////////////////
+    const [dataAppointments, setAppointments] = useState([]);//Hook
 
     useEffect(() => {
 
@@ -27,7 +22,7 @@ const Appointment = () => {
 
     }, []);
 
-    const localizaConcretamente = (appointment) => {
+    const selectAppointments = (appointment) => {
         //console.log(appointment.title);
         let storage = JSON.parse(localStorage.getItem("Appointments"));
         console.log(storage);
@@ -41,7 +36,7 @@ const Appointment = () => {
             <div className="appointmentContainer">
                 {dataAppointments.map(appointment =>
                     <div className="cardAppointment" key={appointment._id} onClick={() =>
-                        localizaConcretamente(appointment)}>{appointment.title}
+                        selectAppointments(appointment)}>{appointment.title}
                         <br></br>
                         {appointment.date}
                     </div>
