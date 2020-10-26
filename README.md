@@ -1,68 +1,149 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# react-clinic-frontend-appointments
+React Clinic Appointments MongoDB
 
-## Available Scripts
 
-In the project directory, you can run:
+GeeksHubs Academy React - MongoDB Project
 
-### `npm start`
+This project is a FrontEnd for a Clinic Web Application.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+When navigating throughout the site a user can Register, Login and Acccess to scheduled appointments according to their user "Role".
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+To check the deployed version of the FrontEnd you can visit the following link:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Deployed App in Heroku servers]()
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Languages and technologies used in the project:
 
-### `npm run eject`
+* Javascript
+* Node
+* React
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Additional libraries:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* AntDesign
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Deployed Online Server Accessibility for the application:
 
-## Learn More
+* Heroku
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Configuration file "dbconnect.js"
 
-### Analyzing the Bundle Size
+This is an example of URI needed in order to connect to the MongoDB server.  
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```js
+    const uri = "mongodb+srv://Ignacio-Merello:xxx@cluster0.8wyqg.mongodb.net/xxx?retryWrites=true&w=majority";
+```
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### Containers
 
-### Advanced Configuration
+In order to access the lodged data in MongoDB i have created the "axios" connections through the different containers that will send or fetch the models from its endpoints.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Example: Importing the react ".jsx" file for appointments
 
-### Deployment
+```js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+import axios from 'axios'; // Require axios
+import './Appointments.scss'; // Import the style associated
+import React, { useEffect, useState } from 'react'; //Making use of the React Functionalities
 
-### `npm run build` fails to minify
+const Appointment = () => {
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+    const [dataAppointments, setAppointments] = useState([]);//Making us of Hooks
+
+    useEffect(() => {
+
+        axios.get('https://clinic-appointments-mongodb.herokuapp.com/appointments/showall')
+            .then((res) => {
+                console.log(res.data);
+                setAppointments(res.data);
+
+                localStorage.setItem("Appointments", JSON.stringify(res.data)); //Conversion of the data into "string"
+
+            }).catch((err) => {
+                console.log(err);
+            });
+
+    }, []);
+
+    const selectAppointments = (appointment) => {
+        let storage = JSON.parse(localStorage.getItem("Appointments"));//Converting Json to allow its access
+        console.log(storage);
+    }
+//Here is where you code whatever you want to display in the FrontEnd of that route
+    return (
+        <div className="container">
+            <div className="title">
+                HERE YOU CAN ACCESS TO ALL THE APPOINTMENTS SCHEDULED BY THE PATIENTS
+                </div>
+            <div className="appointmentContainer">
+                {dataAppointments.map(appointment =>
+                    <div className="cardAppointment" key={appointment._id} onClick={() =>
+                        selectAppointments(appointment)}>{appointment.title}
+                        <br></br>
+                        {appointment.date}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+
+}
+
+export default Appointment //Exporting the container
+```
+
+# Building de App and creating the Routes
+
+The main file that will englobe the whole application will need to have imported the container as well as the "browserrouter" functionality from react to display the project.
+
+```js
+
+import React from 'react';
+import { Switch, BrowserRouter, Route, } from 'react-router-dom'
+import 'antd/dist/antd.css';//Importing AntDesign to the main "App.js" file
+import './App.css';
+import Appointments from './containers/Appointments/Appointments'
+
+function App() {
+  return (
+
+    <BrowserRouter>
+      <Route>
+        <Header/>
+        <Switch>
+          <Route path='/appointments' component={Appointments} exact /> 
+        </Switch>
+        <Footer/>
+        </Route>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+
+
+## Documentation
+
+- [React documentation](https://reactjs.org/)
+
+- [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+
+
+
+## Author 
+
+* **Ignacio Merello lloret** - [ignaciomerello](https://github.com/ignaciomerello)
+
+
