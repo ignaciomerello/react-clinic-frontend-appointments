@@ -11,7 +11,7 @@ When navigating throughout the site a user can Register, Login and Acccess to sc
 
 To check the deployed version of the FrontEnd you can visit the following link:
 
-[Deployed App in Heroku servers]()
+[Deployed App in Heroku servers](https://react-clinic-appointments.herokuapp.com)
 
 
 
