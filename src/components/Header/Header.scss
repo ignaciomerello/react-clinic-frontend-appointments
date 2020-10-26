@@ -1,0 +1,17 @@
+.header{
+    height: 5vw;
+    padding: 2vw;
+    position: absolute;
+    top: 0;
+}
+
+a{
+    color: tomato;
+    margin: 1.5em;
+    padding: 1.5em;
+
+    &:hover{
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
