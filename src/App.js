@@ -10,7 +10,6 @@ import Users from './containers/Users/Users'
 import Appointments from './containers/Appointments/Appointments'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
-import '../src/containers/Appointments/Appointments.scss'
 
 
 
