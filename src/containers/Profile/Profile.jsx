@@ -8,7 +8,7 @@ const Profile = () => {
 
   useEffect(() => {
 
-      axios.get('https://clinic-appointments-mongodb.herokuapp.com/_id')
+      axios.get('https://clinic-appointments-mongodb.herokuapp.com/user')
           .then((res) => {
               console.log(res.data);
               setUser(res.data);

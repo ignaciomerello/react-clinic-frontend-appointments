@@ -31,6 +31,7 @@ const Register = () => {
         console.log('Failed:', errorInfo);
     };
     return (
+        // let token = localStorage.getItem("token");
         <div className="registerForm">
         <Form
             {...layout}
